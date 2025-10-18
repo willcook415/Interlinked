@@ -136,6 +136,15 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LineMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""af94172f-a9b4-4dfc-8b01-8b73fa107485"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -193,6 +202,17 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
                     ""action"": ""Snap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b9a620-3c1d-4d49-a5b0-fac80aa397fc"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LineMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +226,7 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
         m_Build_Delete = m_Build.FindAction("Delete", throwIfNotFound: true);
         m_Build_Rename = m_Build.FindAction("Rename", throwIfNotFound: true);
         m_Build_Snap = m_Build.FindAction("Snap", throwIfNotFound: true);
+        m_Build_LineMode = m_Build.FindAction("LineMode", throwIfNotFound: true);
     }
 
     ~@BuildInput()
@@ -291,6 +312,7 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_Delete;
     private readonly InputAction m_Build_Rename;
     private readonly InputAction m_Build_Snap;
+    private readonly InputAction m_Build_LineMode;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -322,6 +344,10 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/Snap".
         /// </summary>
         public InputAction @Snap => m_Wrapper.m_Build_Snap;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/LineMode".
+        /// </summary>
+        public InputAction @LineMode => m_Wrapper.m_Build_LineMode;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -363,6 +389,9 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
             @Snap.started += instance.OnSnap;
             @Snap.performed += instance.OnSnap;
             @Snap.canceled += instance.OnSnap;
+            @LineMode.started += instance.OnLineMode;
+            @LineMode.performed += instance.OnLineMode;
+            @LineMode.canceled += instance.OnLineMode;
         }
 
         /// <summary>
@@ -389,6 +418,9 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
             @Snap.started -= instance.OnSnap;
             @Snap.performed -= instance.OnSnap;
             @Snap.canceled -= instance.OnSnap;
+            @LineMode.started -= instance.OnLineMode;
+            @LineMode.performed -= instance.OnLineMode;
+            @LineMode.canceled -= instance.OnLineMode;
         }
 
         /// <summary>
@@ -464,5 +496,12 @@ public partial class @BuildInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSnap(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LineMode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLineMode(InputAction.CallbackContext context);
     }
 }
